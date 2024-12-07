@@ -6,62 +6,64 @@ const int MATRIX_SIZE = 3;
 
 struct Matrix {
     int data[MATRIX_SIZE][MATRIX_SIZE] = {};
-};
 
-Matrix calculateMatrix(Matrix matrix_1, Matrix matrix_2, char action) {
-    Matrix result = {};
+    void input() {
+        cout << "Enter the elements of the matrix (" << MATRIX_SIZE << "x" << MATRIX_SIZE << "):" << endl;
 
-    for(int rows = 0; rows < MATRIX_SIZE; rows++) {
-        for(int cols = 0; cols < MATRIX_SIZE; cols++) {
-            switch(action) {
-                case '+':
-                    result.data[rows][cols] = matrix_1.data[rows][cols] + matrix_2.data[rows][cols];
-                    break;
-                case '-':
-                    result.data[rows][cols] = matrix_1.data[rows][cols] - matrix_2.data[rows][cols];
-                    break;
-                case '*':
-                    for(int counter = 0; counter < MATRIX_SIZE; counter++) {
-                        result.data[rows][cols] += matrix_1.data[cols][counter] * matrix_2.data[counter][cols];
-                    }
-                    break;
-                default:
-                    break;
+        for(int rows = 0; rows < MATRIX_SIZE; rows++) {
+            for(int cols = 0; cols < MATRIX_SIZE; cols++) {
+                cout << "Enter element [" << rows + 1 << "][" << cols + 1 << "]: ";
+                cin >> data[rows][cols];
             }
         }
     }
 
-    return result;
-}
+    void print() {
+        for(int rows = 0; rows < MATRIX_SIZE; rows++) {
+            for(int cols = 0; cols < MATRIX_SIZE; cols++) {
+                cout << data[rows][cols] << " ";
+            }
 
-Matrix inputMatrix() {
-    Matrix matrix = {};
-
-    cout << "Enter the elements of the matrix (" << MATRIX_SIZE << "x" << MATRIX_SIZE << "):" << endl;
-
-    for(int rows = 0; rows < MATRIX_SIZE; rows++) {
-        for(int cols = 0; cols < MATRIX_SIZE; cols++) {
-            cout << "Enter element [" << rows + 1 << "][" << cols + 1 << "]: ";
-            cin >> matrix.data[rows][cols];
+            cout << endl;
         }
     }
 
-    return matrix;
-}
+    Matrix calculate(Matrix matrix, char action) {
+        Matrix result = {};
 
-void printMatrix(Matrix matrix) {
-    for(int rows = 0; rows < MATRIX_SIZE; rows++) {
-        for(int cols = 0; cols < MATRIX_SIZE; cols++) {
-            cout << matrix.data[rows][cols] << " ";
+        for(int rows = 0; rows < MATRIX_SIZE; rows++) {
+            for(int cols = 0; cols < MATRIX_SIZE; cols++) {
+                switch(action) {
+                    case '+':
+                        result.data[rows][cols] = data[rows][cols] + matrix.data[rows][cols];
+                        break;
+                    case '-':
+                        result.data[rows][cols] = data[rows][cols] - matrix.data[rows][cols];
+                        break;
+                    case '*':
+                        for(int counter = 0; counter < MATRIX_SIZE; counter++) {
+                            result.data[rows][cols] += data[cols][counter] * matrix.data[counter][cols];
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
-        cout << endl;
+        return result;
     }
-}
+};
 
 int main() {
-    Matrix matrix_1 = inputMatrix();
-    Matrix matrix_2 = inputMatrix();
+    Matrix matrix_1 = {};
+    Matrix matrix_2 = {};
+
+    cout << "Matrix 1:" << endl;
+    matrix_1.input();
+
+    cout << "Matrix 2:" << endl;
+    matrix_2.input();
 
     char operation = ' ';
 
@@ -70,7 +72,7 @@ int main() {
         cin >> operation;
     } while(operation != '+' && operation != '-' && operation != '*');
 
-    printMatrix(calculateMatrix(matrix_1, matrix_2, operation));
+    matrix_1.calculate(matrix_2, operation).print();
 
     return 0;
 }
