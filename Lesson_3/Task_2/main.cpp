@@ -23,30 +23,43 @@ struct Matrix {
             for(int cols = 0; cols < MATRIX_SIZE; cols++) {
                 cout << data[rows][cols] << " ";
             }
-
             cout << endl;
         }
     }
 
-    Matrix calculate(Matrix matrix, char action) {
+    Matrix operator+(Matrix matrix) {
         Matrix result = {};
 
         for(int rows = 0; rows < MATRIX_SIZE; rows++) {
             for(int cols = 0; cols < MATRIX_SIZE; cols++) {
-                switch(action) {
-                    case '+':
-                        result.data[rows][cols] = data[rows][cols] + matrix.data[rows][cols];
-                        break;
-                    case '-':
-                        result.data[rows][cols] = data[rows][cols] - matrix.data[rows][cols];
-                        break;
-                    case '*':
-                        for(int counter = 0; counter < MATRIX_SIZE; counter++) {
-                            result.data[rows][cols] += data[cols][counter] * matrix.data[counter][cols];
-                        }
-                        break;
-                    default:
-                        break;
+                result.data[rows][cols] = data[rows][cols] + matrix.data[rows][cols];
+            }
+        }
+
+        return result;
+    }
+
+    Matrix operator-(Matrix matrix) {
+        Matrix result;
+
+        for(int rows = 0; rows < MATRIX_SIZE; rows++) {
+            for(int cols = 0; cols < MATRIX_SIZE; cols++) {
+                result.data[rows][cols] = data[rows][cols] - matrix.data[rows][cols];
+            }
+        }
+
+        return result;
+    }
+
+    Matrix operator*(Matrix matrix) {
+        Matrix result = {};
+
+        for(int rows = 0; rows < MATRIX_SIZE; rows++) {
+            for(int cols = 0; cols < MATRIX_SIZE; cols++) {
+                result.data[rows][cols] = 0;
+
+                for(int k = 0; k < MATRIX_SIZE; k++) {
+                    result.data[rows][cols] += data[rows][k] * matrix.data[k][cols];
                 }
             }
         }
@@ -72,7 +85,17 @@ int main() {
         cin >> operation;
     } while(operation != '+' && operation != '-' && operation != '*');
 
-    matrix_1.calculate(matrix_2, operation).print();
+    switch(operation) {
+        case '+':
+            (matrix_1 + matrix_2).print();
+            break;
+        case '-':
+            (matrix_1 - matrix_2).print();
+            break;
+        case '*':
+            (matrix_1 * matrix_2).print();
+            break;
+    }
 
     return 0;
 }
