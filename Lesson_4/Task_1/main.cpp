@@ -2,6 +2,32 @@
 
 using namespace std;
 
+int getAccountId() {
+    int accountId = 0;
+
+    cout << "Enter account ID: ";
+    cin >> accountId;
+
+    if(accountId < 0) {
+        return getAccountId();
+    }
+
+    return accountId;
+}
+
+int getAmount() {
+    int amount = 0;
+
+    cout << "Enter amount of money: ";
+    cin >> amount;
+
+    if(amount <= 0) {
+        return getAmount();
+    }
+
+    return amount;
+}
+
 int main() {
     Bank bank = {};
 
@@ -9,9 +35,6 @@ int main() {
 
     do {
         int command = 0;
-
-        int accountId = 0;
-        int amount = 0;
 
         cout << "1. Create account" << endl;
         cout << "2. Delete account" << endl;
@@ -31,51 +54,25 @@ int main() {
                 bank.createAccount();
                 break;
             case 2:
-                cout << "Enter account ID: ";
-                cin >> accountId;
-                bank.deleteAccount(accountId);
+                bank.deleteAccount(getAccountId());
                 break;
             case 3:
-                cout << "Enter account ID: ";
-                cin >> accountId;
-                cout << "Enter amount of money: ";
-                cin >> amount;
-                bank.depositMoney(accountId, amount);
+                bank.depositMoney(getAccountId(), getAmount());
                 break;
             case 4:
-                cout << "Enter account ID: ";
-                cin >> accountId;
-                cout << "Enter amount of money: ";
-                cin >> amount;
-                bank.withdrawMoney(accountId, amount);
+                bank.withdrawMoney(getAccountId(), getAmount());
                 break;
             case 5:
-                cout << "Enter account ID: ";
-                cin >> accountId;
-                cout << "Enter amount of money: ";
-                cin >> amount;
-                bank.takeCredit(accountId, amount);
+                bank.takeCredit(getAccountId(), getAmount());
                 break;
             case 6:
-                cout << "Enter account ID: ";
-                cin >> accountId;
-                cout << "Enter amount of money: ";
-                cin >> amount;
-                bank.repayCredit(accountId, amount);
+                bank.repayCredit(getAccountId(), getAmount());
                 break;
             case 7:
-                cout << "Enter account ID: ";
-                cin >> accountId;
-                cout << "Enter amount of money: ";
-                cin >> amount;
-                bank.placeDeposit(accountId, amount);
+                bank.placeDeposit(getAccountId(), getAmount());
                 break;
             case 8:
-                cout << "Enter account ID: ";
-                cin >> accountId;
-                cout << "Enter amount of money: ";
-                cin >> amount;
-                bank.withdrawDeposit(accountId, amount);
+                bank.withdrawDeposit(getAccountId(), getAmount());
                 break;
             case 9:
                 string date = "";
@@ -86,5 +83,7 @@ int main() {
                 bank.filterLogsByDate(date);
                 break;
         }
-    } while (true);
+    } while(true);
+
+    return 0;
 }

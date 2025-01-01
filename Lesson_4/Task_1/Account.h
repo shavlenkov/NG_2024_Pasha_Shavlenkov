@@ -12,7 +12,7 @@ protected:
     int accountId = 0;
     int logIndex = 0;
 
-    static const int MAX_LOGS = 10;
+    static const int MAX_LOGS = 1000;
 
     string logs[MAX_LOGS][2] = {};
 
@@ -41,7 +41,7 @@ protected:
     }
 
     int checkAccountExists(int accountId) {
-        if (accountId < 0 || accountId >= MAX_ACCOUNTS || !accounts[accountId].isActive) {
+        if(accountId < 0 || accountId >= MAX_ACCOUNTS || !accounts[accountId].isActive) {
             cout << "Account with ID " << accountId << " does not exist" << endl;
 
             return 0;
@@ -51,7 +51,7 @@ protected:
     }
 
     void addLog(string action) {
-        if (logIndex < MAX_LOGS) {
+        if(logIndex < MAX_LOGS) {
             logs[logIndex][0] = getCurrentDate();
             logs[logIndex][1] = action;
 
@@ -71,7 +71,7 @@ public:
     }
 
     void deleteAccount(int accountId) {
-        if (checkAccountExists(accountId)) {
+        if(checkAccountExists(accountId)) {
             accounts[accountId].isActive = 0;
             accounts[accountId] = AccountStruct();
 
@@ -81,9 +81,9 @@ public:
     }
 
     void filterLogsByDate(string date) {
-        for(int i = 0; i < logIndex; i++) {
-            if(logs[i][0] >= date) {
-                cout << logs[i][0] << " - " << logs[i][1] << endl;
+        for(int counter = 0; counter < logIndex; counter++) {
+            if(logs[counter][0] >= date) {
+                cout << logs[counter][0] << " - " << logs[counter][1] << endl;
             }
         }
     }

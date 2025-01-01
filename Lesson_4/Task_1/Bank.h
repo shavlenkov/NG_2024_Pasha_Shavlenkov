@@ -9,10 +9,6 @@ using namespace std;
 class Bank : public Account {
 public:
     void depositMoney(int accountId, int amount) {
-        if(amount <= 0) {
-            return;
-        }
-
         if(checkAccountExists(accountId)) {
             accounts[accountId].balance += amount;
 
@@ -22,10 +18,6 @@ public:
     }
 
     void withdrawMoney(int accountId, int amount) {
-        if(amount <= 0) {
-            return;
-        }
-
         if(checkAccountExists(accountId) && accounts[accountId].balance >= amount) {
             accounts[accountId].balance -= amount;
 
@@ -37,10 +29,6 @@ public:
     }
 
     void takeCredit(int accountId, int amount) {
-        if(amount <= 0) {
-            return;
-        }
-
         if(checkAccountExists(accountId)) {
             accounts[accountId].credit += amount;
             accounts[accountId].balance += amount;
@@ -51,10 +39,6 @@ public:
     }
 
     void repayCredit(int accountId, int amount) {
-        if(amount <= 0) {
-            return;
-        }
-
         if(checkAccountExists(accountId) && accounts[accountId].credit >= amount && amount <= accounts[accountId].balance) {
             accounts[accountId].credit -= amount;
             accounts[accountId].balance -= amount;
@@ -67,10 +51,6 @@ public:
     }
 
     void placeDeposit(int accountId, int amount) {
-        if(amount <= 0) {
-            return;
-        }
-
         if(checkAccountExists(accountId) && accounts[accountId].balance >= amount) {
             accounts[accountId].deposit += amount;
             accounts[accountId].balance -= amount;
@@ -81,10 +61,6 @@ public:
     }
 
     void withdrawDeposit(int accountId, int amount) {
-        if(amount <= 0) {
-            return;
-        }
-
         if(checkAccountExists(accountId) && accounts[accountId].deposit >= amount) {
             accounts[accountId].deposit -= amount;
             accounts[accountId].balance += amount;
